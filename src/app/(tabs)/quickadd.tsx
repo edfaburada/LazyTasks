@@ -1,7 +1,6 @@
-
 import { View, Text, Pressable } from "react-native";
 
-export default function QuickAdd() {
+export default function QuickAdd(): import("react").JSX.Element {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text style={{ fontSize: 20 }}>Quick Add</Text>

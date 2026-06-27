@@ -1,8 +1,7 @@
-
 import { View, Text, FlatList, Pressable } from "react-native";
 import { useState } from "react";
 
-export default function Tasks() {
+export default function Tasks(): import("react").JSX.Element {
   const [tasks] = useState([
     { id: "1", title: "Drink water" },
     { id: "2", title: "Take a break" }
