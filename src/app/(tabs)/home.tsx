@@ -52,7 +52,7 @@ export default function Home() {
         <Ionicons
           name="checkmark-circle"
           size={50}
-          color="#4CAF50" />
+          color="#1f9423" />
 
         <Text style={styles.progressTitle}>
           Today's Progress
@@ -589,7 +589,7 @@ const styles = StyleSheet.create({
   },
 
   progressCard: {
-    backgroundColor: "#F2EAF7", // UPDATED SURFACE COLOR
+    backgroundColor: "#c59dd9", // UPDATED SURFACE COLOR
     borderRadius: 18,
     padding: 25,
     alignItems: "center",
