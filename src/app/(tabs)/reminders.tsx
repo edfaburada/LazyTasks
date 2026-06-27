@@ -137,20 +137,22 @@ export default function Reminders() {
         style={styles.input}
       />
 
-      {/* TIME FIELD (TAP OPENS REAL CLOCK) */}
-      <Pressable
-        onPress={() => setTimePickerVisible(true)}
-        style={[
-          styles.input,
-          {
-            justifyContent: "center",
-          },
-        ]}
-      >
-        <Text style={{ color: time ? "#000" : "#999" }}>
-          {time ? time : "Tap to select time"}
-        </Text>
-      </Pressable>
+<Pressable
+  onPress={() => {
+    console.log("clicked"); // ✅ TEST IF PRESS WORKS
+    setTimePickerVisible(true);
+  }}
+  style={[
+    styles.input,
+    {
+      justifyContent: "center",
+    },
+  ]}
+>
+  <Text style={{ color: time ? "#000" : "#999" }}>
+    {time ? time : "Tap to select time"}
+  </Text>
+</Pressable>
 
       {/* SAVE BUTTON */}
       <Pressable style={styles.saveBtn} onPress={addReminder}>
@@ -174,8 +176,13 @@ export default function Reminders() {
     value={selectedTime}
     mode="time"
     is24Hour={false}
-    display="spinner"   // 🔥 REAL CLOCK WHEEL
+    display="default"
     onChange={(event, date) => {
+      if (event.type === "dismissed") {
+        setTimePickerVisible(false);
+        return;
+      }
+
       setTimePickerVisible(false);
 
       if (date) {
@@ -307,9 +314,8 @@ tipCard: {
     marginTop: 4,
   },
 
-  modalOverlay: {
+modalOverlay: {
   flex: 1,
-  backgroundColor: "rgba(0,0,0,0.5)",
   justifyContent: "center",
   alignItems: "center",
 },
