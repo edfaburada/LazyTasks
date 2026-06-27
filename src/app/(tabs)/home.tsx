@@ -267,25 +267,22 @@ export default function Home() {
   />
 </Pressable>
 
-      {/* Daily Tip */}
+{/* Daily Tip */}
 
-      <View style={styles.tipCard}>
-        <Ionicons
-          name="bulb"
-          size={30}
-          color="#FFC107" />
+<View style={styles.tipCard}>
+  <View style={styles.tipContent}>
+    <Ionicons name="bulb" size={30} color="#FFC107" />
 
-        <View style={{ marginLeft: 12, flex: 1 }}>
-          <Text style={styles.tipTitle}>
-            Daily Tip
-          </Text>
+    <View style={styles.tipTextContainer}>
+      <Text style={styles.tipTitle}>Daily Tip</Text>
 
-          <Text style={styles.tipText}>
-            Complete the hardest task first.
-            Everything else will feel easier.
-          </Text>
-        </View>
-      </View>
+      <Text style={styles.tipText}>
+        Complete the hardest task first. 
+        Everything else will feel easier.
+      </Text>
+    </View>
+  </View>
+</View>
 
       {/* Achievement */}
 
@@ -293,7 +290,7 @@ export default function Home() {
   <Ionicons
     name="ribbon"
     size={40}
-    color="#fff"
+    color="#5cda71"
   />
 
   <Text style={styles.achievementTitle}>
@@ -559,42 +556,44 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    backgroundColor: "#F5F7FA",
+    backgroundColor: "#F7F8FA",
     padding: 20,
   },
 
-header: {
-  marginTop: 20,
-  marginBottom: 20,
-},
+  header: {
+    marginTop: 20,
+    marginBottom: 20,
+  },
 
-headerRow: {
-  flexDirection: "row",
-  alignItems: "center",
-},
+  headerRow: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
 
-wave: {
-  fontSize: 32,
-  marginRight: 10,
-},
+  wave: {
+    fontSize: 32,
+    marginRight: 10,
+    color: "#1F2937",
+  },
 
-greeting: {
-  fontSize: 34,
-  fontWeight: "bold",
-},
+  greeting: {
+    fontSize: 34,
+    fontWeight: "bold",
+    color: "#1F2937",
+  },
 
-subtitle: {
-  fontSize: 16,
-  color: "#777",
-  marginTop: 3,
-},
+  subtitle: {
+    fontSize: 16,
+    color: "#8A94A6",
+    marginTop: 3,
+  },
 
   progressCard: {
-    backgroundColor: "#fff",
+    backgroundColor: "#F2EAF7", // UPDATED SURFACE COLOR
     borderRadius: 18,
     padding: 25,
     alignItems: "center",
-    elevation: 4,
+    elevation: 3,
     marginBottom: 25,
   },
 
@@ -602,10 +601,11 @@ subtitle: {
     fontSize: 22,
     fontWeight: "bold",
     marginTop: 10,
+    color: "#1F2937",
   },
 
   progressText: {
-    color: "#666",
+    color: "#1F2937",
     marginTop: 5,
   },
 
@@ -614,6 +614,7 @@ subtitle: {
     fontWeight: "bold",
     marginBottom: 15,
     marginTop: 10,
+    color: "#1F2937",
   },
 
   row: {
@@ -624,16 +625,17 @@ subtitle: {
 
   actionCard: {
     width: "48%",
-    backgroundColor: "#fff",
+    backgroundColor: "#F2EAF7", // UPDATED SURFACE COLOR
     borderRadius: 18,
     padding: 20,
     alignItems: "center",
-    elevation: 3,
+    elevation: 2,
   },
 
   actionText: {
     marginTop: 10,
     fontWeight: "600",
+    color: "#1F2937",
   },
 
   pressedCard: {
@@ -649,37 +651,39 @@ subtitle: {
 
   statCard: {
     width: "31%",
-    backgroundColor: "#fff",
+    backgroundColor: "#F2EAF7", // UPDATED SURFACE COLOR
     borderRadius: 15,
     alignItems: "center",
     padding: 18,
-    elevation: 3,
+    elevation: 2,
   },
 
   statNumber: {
     fontSize: 22,
     fontWeight: "bold",
     marginTop: 8,
+    color: "#1F2937",
   },
 
   statLabel: {
-    color: "#777",
+    color: "#8A94A6",
   },
 
   taskCard: {
-    backgroundColor: "#fff",
+    backgroundColor: "#F2EAF7", // UPDATED SURFACE COLOR
     padding: 18,
     borderRadius: 15,
     marginBottom: 12,
     flexDirection: "row",
     alignItems: "center",
-    elevation: 2,
+    elevation: 1,
   },
 
   taskText: {
     marginLeft: 12,
     fontSize: 16,
     fontWeight: "500",
+    color: "#1F2937",
   },
 
   taskInfo: {
@@ -688,29 +692,46 @@ subtitle: {
 
   taskTime: {
     fontSize: 13,
-    color: "#999",
+    color: "#8A94A6",
   },
 
   tipCard: {
-    backgroundColor: "#FFF8E1",
+    backgroundColor: "#4F46E5",
     borderRadius: 15,
     padding: 18,
     flexDirection: "row",
+    alignItems: "center",
     marginTop: 20,
   },
 
   tipTitle: {
     fontWeight: "bold",
     fontSize: 17,
+    textAlign: "center",
+    color: "#FFFFFF",
   },
 
   tipText: {
-    color: "#666",
+    color: "#FFFFFF",
     marginTop: 5,
+    textAlign: "center",
+  },
+
+  tipContent: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+  },
+
+  tipTextContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginLeft: 10,
   },
 
   achievementCard: {
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#1F2937",
     borderRadius: 18,
     padding: 25,
     alignItems: "center",
@@ -719,47 +740,48 @@ subtitle: {
   },
 
   achievementTitle: {
-    color: "#fff",
+    color: "#FFFFFF",
     fontSize: 22,
     fontWeight: "bold",
     marginTop: 10,
   },
 
   achievementText: {
-    color: "#fff",
+    color: "#FFFFFF",
     marginTop: 6,
   },
 
-modalOverlay: {
-  flex: 1,
-  backgroundColor: "rgba(0, 0, 0, 0.5)",
-  justifyContent: "flex-end",
-},
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    justifyContent: "flex-end",
+  },
 
-modalCard: {
-  width: "100%",
-  backgroundColor: "#fff",
-  borderTopLeftRadius: 20,
-  borderTopRightRadius: 20,
-  padding: 20,
-},
+  modalCard: {
+    width: "100%",
+    backgroundColor: "#F7F8FA",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    padding: 20,
+  },
 
   modalTitle: {
     fontSize: 22,
     fontWeight: "bold",
     marginBottom: 16,
+    color: "#1F2937",
   },
 
   modalDescription: {
     fontSize: 14,
-    color: "#666",
+    color: "#8A94A6",
     marginBottom: 14,
     lineHeight: 20,
   },
 
   modalInfo: {
     fontSize: 14,
-    color: "#333",
+    color: "#1F2937",
     marginBottom: 8,
   },
 
@@ -768,7 +790,7 @@ modalCard: {
     alignItems: "center",
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: "#eee",
+    borderBottomColor: "#F2EAF7",
   },
 
   modalTaskText: {
@@ -776,58 +798,60 @@ modalCard: {
     marginLeft: 10,
     fontSize: 15,
     fontWeight: "500",
+    color: "#1F2937",
   },
 
   modalTime: {
-    color: "#777",
+    color: "#8A94A6",
     fontSize: 13,
   },
 
   modalHandle: {
-  width: 50,
-  height: 5,
-  backgroundColor: "#ddd",
-  borderRadius: 10,
-  alignSelf: "center",
-  marginBottom: 10,
-},
+    width: 50,
+    height: 5,
+    backgroundColor: "#4F46E5",
+    borderRadius: 10,
+    alignSelf: "center",
+    marginBottom: 10,
+  },
 
   progressBox: {
     marginTop: 16,
     padding: 14,
     borderRadius: 14,
-    backgroundColor: "#F5F7FA",
+    backgroundColor: "#F2EAF7", // UPDATED SURFACE COLOR
   },
 
   progressLabel: {
     fontSize: 14,
     fontWeight: "600",
-    color: "#555",
+    color: "#1F2937",
   },
 
   progressPercent: {
     marginTop: 6,
     fontSize: 16,
     fontWeight: "700",
+    color: "#4F46E5",
   },
 
   closeButton: {
     marginTop: 16,
-    backgroundColor: "#2196F3",
+    backgroundColor: "#4F46E5",
     paddingVertical: 12,
     borderRadius: 12,
     alignItems: "center",
   },
 
   closeButtonText: {
-    color: "#fff",
+    color: "#FFFFFF",
     fontSize: 16,
     fontWeight: "600",
   },
 
-hoverCard: {
-  transform: [{ scale: 1.05 }],
-  backgroundColor: "#f8f8f8",
-  elevation: 6,
-},
+  hoverCard: {
+    transform: [{ scale: 1.05 }],
+    backgroundColor: "#F2F4F8",
+    elevation: 6,
+  },
 });

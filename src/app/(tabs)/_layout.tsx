@@ -19,7 +19,7 @@ export default function TabLayout() {
 
         // Active & Inactive Colors
         tabBarActiveTintColor: "#4CAF50",
-        tabBarInactiveTintColor: "#888",
+        tabBarInactiveTintColor: "#0c0c0c",
 
         // Label Style
         tabBarLabelStyle: {
