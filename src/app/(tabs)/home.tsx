@@ -14,21 +14,37 @@ import React from "react";
 export default function Home() {
   const router = useRouter();
   const [showTodayTasks, setShowTodayTasks] = React.useState(false);
+  const [showPendingModal, setShowPendingModal] = React.useState(false);
+  const [doneModalVisible, setDoneModalVisible] = React.useState(false);
+  const cardStyle = (pressed: any, hovered: any, baseStyle: any) => [
+  baseStyle,
+  pressed && styles.pressedCard,
+  hovered && styles.hoverCard,
+];
+  const [selectedTask, setSelectedTask] = React.useState("");
 
   return (
     <><ScrollView
       style={styles.container}
       showsVerticalScrollIndicator={false}
     >
-      {/* Header */}
+{/* Header */}
 
+<View style={styles.header}>
+  <View style={styles.headerRow}>
+    <Text style={styles.wave}>👋</Text>
+
+    <View>
       <Text style={styles.greeting}>
-        👋 Welcome Back!
+        Welcome Back!
       </Text>
 
       <Text style={styles.subtitle}>
         {new Date().toDateString()}
       </Text>
+    </View>
+  </View>
+</View>
 
       {/* Progress */}
 
@@ -86,8 +102,9 @@ export default function Home() {
       <View style={styles.statsRow}>
 
         {/* Total Tasks */}
+
         <Pressable
-          onPress={() => router.push("/Tasks")}
+          onPress={() => router.push("/tasks")}
           style={({ pressed }) => [
             styles.statCard,
             pressed && styles.pressedCard,
@@ -101,31 +118,44 @@ export default function Home() {
           <Text style={styles.statLabel}>Tasks</Text>
         </Pressable>
 
-        {/* Pending Tasks */}
-        <Pressable onPress={() => router.push("/pending")} style={({ pressed }) => [styles.statCard, pressed && styles.pressedCard,]}>
-          <Ionicons
-            name="time"
-            size={28}
-            color="#2196F3" />
-          <Text style={styles.statNumber}>3</Text>
-          <Text style={styles.statLabel}>Pending</Text>
-        </Pressable>
+{/* Pending Tasks */}
+
+<Pressable
+  onPress={() => setShowPendingModal(true)}
+  style={(state) => [
+    styles.statCard,
+    state.pressed && styles.pressedCard,
+    (state as any).hovered && styles.hoverCard,
+  ].filter(Boolean)}
+>
+  <Ionicons
+    name="time"
+    size={28}
+    color="#2196F3"
+  />
+
+  <Text style={styles.statNumber}>
+    3
+  </Text>
+
+  <Text style={styles.statLabel}>
+    Pending
+  </Text>
+</Pressable>
 
         {/* Completed Tasks */}
-        <Pressable
-          onPress={() => router.push("/done")}
-          style={({ pressed }) => [
-            styles.statCard,
-            pressed && styles.pressedCard,
-          ]}
-        >
-          <Ionicons
-            name="trophy"
-            size={28}
-            color="#FFC107" />
-          <Text style={styles.statNumber}>5</Text>
-          <Text style={styles.statLabel}>Done</Text>
-        </Pressable>
+{/* Completed Tasks */}
+<Pressable
+  onPress={() => setDoneModalVisible(true)}
+  style={({ pressed }) => [
+    styles.statCard,
+    pressed && styles.pressedCard,
+  ]}
+>
+  <Ionicons name="trophy" size={28} color="#FFC107" />
+  <Text style={styles.statNumber}>5</Text>
+  <Text style={styles.statLabel}>Done</Text>
+</Pressable>
 
       </View>
 
@@ -135,56 +165,107 @@ export default function Home() {
         Today's Tasks
       </Text>
 
-      {/* Task 1 */}
-      <Pressable
-        onPress={() => setShowTodayTasks(true)}
-        style={({ pressed }) => [
-          styles.taskCard,
-          pressed && styles.pressedCard,
-        ]}
-      >
-        <Ionicons
-          name="ellipse"
-          size={14}
-          color="#4CAF50" />
-        <Text style={styles.taskText}>
-          Finish Assignment
-        </Text>
-      </Pressable>
+{/* Task 1 */}
+<Pressable
+  onPress={() => {
+    setSelectedTask("Finish Assignment");
+    setShowTodayTasks(true);
+  }}
+  style={({ pressed }) => [
+    styles.taskCard,
+    pressed && styles.pressedCard,
+  ]}
+>
+  <Ionicons
+    name="ellipse"
+    size={14}
+    color="#4CAF50"
+  />
 
-      {/* Task 2 */}
-      <Pressable
-        onPress={() => setShowTodayTasks(true)}
-        style={({ pressed }) => [
-          styles.taskCard,
-          pressed && styles.pressedCard,
-        ]}
-      >
-        <Ionicons
-          name="ellipse"
-          size={14}
-          color="#FF9800" />
-        <Text style={styles.taskText}>
-          Buy Groceries
-        </Text>
-      </Pressable>
+  <View style={styles.taskInfo}>
+    <Text style={styles.taskText}>
+      Finish Assignment
+    </Text>
 
-      {/* Task 3 */}
-      <Pressable
-        onPress={() => setShowTodayTasks(true)}
-        style={({ pressed }) => [
-          styles.taskCard,
-          pressed && styles.pressedCard,
-        ]}
-      >
-        <Ionicons
-          name="ellipse"
-          size={14}
-          color="#2196F3" />
-        <Text style={styles.taskText}>
-          Read 20 Pages
-        </Text>
-      </Pressable>
+    <Text style={styles.taskTime}>
+      Due Today • 5:00 PM
+    </Text>
+  </View>
+
+  <Ionicons
+    name="chevron-forward"
+    size={22}
+    color="#999"
+  />
+</Pressable>
+
+{/* Task 2 */}
+<Pressable
+  onPress={() => {
+    setSelectedTask("Buy Groceries");
+    setShowTodayTasks(true);
+  }}
+  style={({ pressed }) => [
+    styles.taskCard,
+    pressed && styles.pressedCard,
+  ]}
+>
+  <Ionicons
+    name="ellipse"
+    size={14}
+    color="#FF9800"
+  />
+
+  <View style={styles.taskInfo}>
+    <Text style={styles.taskText}>
+      Buy Groceries
+    </Text>
+
+    <Text style={styles.taskTime}>
+      Due Today • 6:30 PM
+    </Text>
+  </View>
+
+  <Ionicons
+    name="chevron-forward"
+    size={22}
+    color="#999"
+  />
+</Pressable>
+
+{/* Task 3 */}
+<Pressable
+  onPress={() => {
+    setSelectedTask("Read 20 Pages");
+    setShowTodayTasks(true);
+  }}
+  style={({ pressed }) => [
+    styles.taskCard,
+    pressed && styles.pressedCard,
+  ]}
+>
+  <Ionicons
+    name="ellipse"
+    size={14}
+    color="#2196F3"
+  />
+
+  <View style={styles.taskInfo}>
+    <Text style={styles.taskText}>
+      Read 20 Pages
+    </Text>
+
+    <Text style={styles.taskTime}>
+      Due Today • 8:00 PM
+    </Text>
+  </View>
+
+  <Ionicons
+    name="chevron-forward"
+    size={22}
+    color="#999"
+  />
+</Pressable>
 
       {/* Daily Tip */}
 
@@ -208,74 +289,258 @@ export default function Home() {
 
       {/* Achievement */}
 
+<View style={styles.achievementCard}>
+  <Ionicons
+    name="ribbon"
+    size={40}
+    color="#fff"
+  />
+
+  <Text style={styles.achievementTitle}>
+    Great Job!
+  </Text>
+
+  <Text style={styles.achievementText}>
+    You're 62% productive today.
+  </Text>
+</View>
+
+      </ScrollView>
+
+      <Modal
+  visible={doneModalVisible}
+  transparent
+  animationType="slide"
+  onRequestClose={() => setDoneModalVisible(false)}
+>
+  <View style={styles.modalOverlay}>
+    <View style={styles.modalCard}>
+
+      <Text style={styles.modalTitle}>Completed Tasks</Text>
+
+      <Text style={styles.modalDescription}>
+        You have completed 5 tasks 🎉
+      </Text>
+
       <Pressable
-        onPress={() => router.push("/done")}
-        style={({ pressed }) => [
-          styles.achievementCard,
-          pressed && styles.pressedCard,
-        ]}
+        onPress={() => setDoneModalVisible(false)}
+        style={styles.closeButton}
       >
-        <Ionicons
-          name="ribbon"
-          size={40}
-          color="#fff" />
-
-        <Text style={styles.achievementTitle}>
-          Great Job!
-        </Text>
-
-        <Text style={styles.achievementText}>
-          You're 62% productive today.
+        <Text style={{ color: "#fff", fontWeight: "bold" }}>
+          Close
         </Text>
       </Pressable>
 
-      </ScrollView>
+    </View>
+  </View>
+</Modal>
+
+      <Modal
+  visible={showPendingModal}
+  transparent
+  animationType="slide"
+>
+  <View style={styles.modalOverlay}>
+    <View style={styles.modalCard}>
+
+      <Text style={styles.modalTitle}>
+        ⏳ Pending Tasks
+      </Text>
+
+      <View style={styles.modalTask}>
+        <Ionicons
+          name="time"
+          size={18}
+          color="#2196F3"
+        />
+
+        <View style={styles.taskInfo}>
+          <Text style={styles.taskText}>
+            Finish Assignment
+          </Text>
+          <Text style={styles.taskTime}>
+            Due Today • 5:00 PM
+          </Text>
+        </View>
+      </View>
+
+      <View style={styles.modalTask}>
+        <Ionicons
+          name="time"
+          size={18}
+          color="#2196F3"
+        />
+
+        <View style={styles.taskInfo}>
+          <Text style={styles.taskText}>
+            Buy Groceries
+          </Text>
+          <Text style={styles.taskTime}>
+            Due Today • 6:30 PM
+          </Text>
+        </View>
+      </View>
+
+      <View style={styles.modalTask}>
+        <Ionicons
+          name="time"
+          size={18}
+          color="#2196F3"
+        />
+
+        <View style={styles.taskInfo}>
+          <Text style={styles.taskText}>
+            Read 20 Pages
+          </Text>
+          <Text style={styles.taskTime}>
+            Due Today • 8:00 PM
+          </Text>
+        </View>
+      </View>
+
+      <View style={styles.progressBox}>
+        <Text style={styles.progressLabel}>
+          Pending Summary
+        </Text>
+
+        <Text style={styles.progressPercent}>
+          3 Tasks Remaining
+        </Text>
+      </View>
+
+      <Pressable
+        style={styles.closeButton}
+        onPress={() => setShowPendingModal(false)}
+      >
+        <Text style={styles.closeButtonText}>
+          Close
+        </Text>
+      </Pressable>
+
+    </View>
+  </View>
+</Modal>
 
       <Modal
         visible={showTodayTasks}
         animationType="slide"
         transparent
       >
-        <View style={styles.modalBackground}>
+        <View style={styles.modalOverlay}>
           <View style={styles.modalCard}>
-            <Text style={styles.modalTitle}>
-              📅 Today's Tasks
-            </Text>
 
-            <Pressable style={styles.modalTask}>
-              <Ionicons name="ellipse" size={12} color="#4CAF50" />
-              <Text style={styles.modalTaskText}>
-                Finish Assignment
-              </Text>
-              <Text style={styles.modalTime}>
-                5:00 PM
-              </Text>
-            </Pressable>
+{/* Finish Assignment */}
+{selectedTask === "Finish Assignment" && (
+  <>
+    <Text style={styles.modalTitle}>📘 Finish Assignment</Text>
 
-            <Pressable style={styles.modalTask}>
-              <Ionicons name="ellipse" size={12} color="#FF9800" />
-              <Text style={styles.modalTaskText}>
-                Buy Groceries
-              </Text>
-              <Text style={styles.modalTime}>
-                6:30 PM
-              </Text>
-            </Pressable>
+    <Text style={styles.modalDescription}>
+      Complete your Web Programming Assignment before
+      5:00 PM today.
+    </Text>
 
-            <Pressable style={styles.modalTask}>
-              <Ionicons name="ellipse" size={12} color="#2196F3" />
-              <Text style={styles.modalTaskText}>
-                Read 20 Pages
-              </Text>
-              <Text style={styles.modalTime}>
-                8:00 PM
-              </Text>
-            </Pressable>
+    <Text style={styles.modalInfo}>
+      📅 Due Date: Today
+    </Text>
 
-            <View style={styles.progressBox}>
-              <Text style={styles.progressLabel}>Progress</Text>
-              <Text style={styles.progressPercent}>62% Completed</Text>
-            </View>
+    <Text style={styles.modalInfo}>
+      ⏰ Time: 5:00 PM
+    </Text>
+
+    <Text style={styles.modalInfo}>
+      🚩 Priority: High
+    </Text>
+
+    <Text style={styles.modalInfo}>
+      📚 Subject: Web Development
+    </Text>
+
+    <View style={styles.progressBox}>
+      <Text style={styles.progressLabel}>
+        Progress
+      </Text>
+
+      <Text style={styles.progressPercent}>
+        40% Completed
+      </Text>
+    </View>
+  </>
+)}
+
+{/* Buy Groceries */}
+
+{selectedTask === "Buy Groceries" && (
+  <>
+    <Text style={styles.modalTitle}>🛒 Buy Groceries</Text>
+
+    <Text style={styles.modalDescription}>
+      Buy all the groceries needed for this week.
+    </Text>
+
+    <Text style={styles.modalInfo}>
+      📅 Due Date: Today
+    </Text>
+
+    <Text style={styles.modalInfo}>
+      ⏰ Time: 6:30 PM
+    </Text>
+
+    <Text style={styles.modalInfo}>
+      🚩 Priority: Medium
+    </Text>
+
+    <Text style={styles.modalInfo}>
+      🛍 Items: Rice, Eggs, Bread, Milk
+    </Text>
+
+    <View style={styles.progressBox}>
+      <Text style={styles.progressLabel}>
+        Progress
+      </Text>
+
+      <Text style={styles.progressPercent}>
+        Not Started
+      </Text>
+    </View>
+  </>
+)}
+
+{/* Read 20 Pages */}
+{selectedTask === "Read 20 Pages" && (
+  <>
+    <Text style={styles.modalTitle}>📖 Read 20 Pages</Text>
+
+    <Text style={styles.modalDescription}>
+      Continue reading your Programming book.
+    </Text>
+
+    <Text style={styles.modalInfo}>
+      📅 Due Date: Today
+    </Text>
+
+    <Text style={styles.modalInfo}>
+      ⏰ Time: 8:00 PM
+    </Text>
+
+    <Text style={styles.modalInfo}>
+      🚩 Priority: Low
+    </Text>
+
+    <Text style={styles.modalInfo}>
+      📄 Pages: 61 - 80
+    </Text>
+
+    <View style={styles.progressBox}>
+      <Text style={styles.progressLabel}>
+        Progress
+      </Text>
+
+      <Text style={styles.progressPercent}>
+        80% Completed
+      </Text>
+    </View>
+  </>
+)}
 
             <Pressable
               style={styles.closeButton}
@@ -298,16 +563,31 @@ const styles = StyleSheet.create({
     padding: 20,
   },
 
-  greeting: {
-    fontSize: 30,
-    fontWeight: "bold",
-    marginTop: 20,
-  },
+header: {
+  marginTop: 20,
+  marginBottom: 20,
+},
 
-  subtitle: {
-    color: "#777",
-    marginBottom: 20,
-  },
+headerRow: {
+  flexDirection: "row",
+  alignItems: "center",
+},
+
+wave: {
+  fontSize: 32,
+  marginRight: 10,
+},
+
+greeting: {
+  fontSize: 34,
+  fontWeight: "bold",
+},
+
+subtitle: {
+  fontSize: 16,
+  color: "#777",
+  marginTop: 3,
+},
 
   progressCard: {
     backgroundColor: "#fff",
@@ -402,6 +682,15 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
 
+  taskInfo: {
+    flex: 1,
+  },
+
+  taskTime: {
+    fontSize: 13,
+    color: "#999",
+  },
+
   tipCard: {
     backgroundColor: "#FFF8E1",
     borderRadius: 15,
@@ -441,25 +730,37 @@ const styles = StyleSheet.create({
     marginTop: 6,
   },
 
-  modalBackground: {
-    flex: 1,
-    backgroundColor: "rgba(0,0,0,0.5)",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
-  },
+modalOverlay: {
+  flex: 1,
+  backgroundColor: "rgba(0, 0, 0, 0.5)",
+  justifyContent: "flex-end",
+},
 
-  modalCard: {
-    width: "100%",
-    backgroundColor: "#fff",
-    borderRadius: 20,
-    padding: 20,
-  },
+modalCard: {
+  width: "100%",
+  backgroundColor: "#fff",
+  borderTopLeftRadius: 20,
+  borderTopRightRadius: 20,
+  padding: 20,
+},
 
   modalTitle: {
     fontSize: 22,
     fontWeight: "bold",
     marginBottom: 16,
+  },
+
+  modalDescription: {
+    fontSize: 14,
+    color: "#666",
+    marginBottom: 14,
+    lineHeight: 20,
+  },
+
+  modalInfo: {
+    fontSize: 14,
+    color: "#333",
+    marginBottom: 8,
   },
 
   modalTask: {
@@ -481,6 +782,15 @@ const styles = StyleSheet.create({
     color: "#777",
     fontSize: 13,
   },
+
+  modalHandle: {
+  width: 50,
+  height: 5,
+  backgroundColor: "#ddd",
+  borderRadius: 10,
+  alignSelf: "center",
+  marginBottom: 10,
+},
 
   progressBox: {
     marginTop: 16,
@@ -515,4 +825,9 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
 
+hoverCard: {
+  transform: [{ scale: 1.05 }],
+  backgroundColor: "#f8f8f8",
+  elevation: 6,
+},
 });
