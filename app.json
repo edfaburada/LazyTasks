@@ -5,7 +5,16 @@
     "scheme": "lazytasks",
     "version": "1.0.0",
     "plugins": [
-      "@react-native-community/datetimepicker"
-    ]
+      "@react-native-community/datetimepicker",
+      "expo-font"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "90b431e0-d5b7-4820-9fa6-f948e62d9f58"
+      }
+    },
+    "android": {
+      "package": "faburada.lazytask.com"
+    }
   }
 }
