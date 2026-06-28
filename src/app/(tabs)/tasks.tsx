@@ -11,6 +11,7 @@ import {
 
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 
 const initialTasks = [
@@ -65,8 +66,30 @@ const [newTitle, setNewTitle] = React.useState("");
 
 const [newTime, setNewTime] = React.useState("");
 
+const [showTimePicker, setShowTimePicker] = React.useState(false);
+
+const [selectedTime, setSelectedTime] = React.useState(new Date());
+
 const [newCategory, setNewCategory] =
   React.useState("Work");
+
+  const onChangeTime = (
+  event: any,
+  selected?: Date
+) => {
+  setShowTimePicker(false);
+
+  if (selected) {
+    setSelectedTime(selected);
+
+    const formatted = selected.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    setNewTime(formatted);
+  }
+};
 
 const addTask = () => {
   alert("Save button clicked!");
@@ -151,21 +174,21 @@ const filteredTasks = tasks.filter((task) => {
           </View>
         </View>
 
-        {/* Search */}
-        <View style={styles.searchBox}>
-          <Ionicons
-            name="search"
-            size={22}
-            color="#999"
-          />
+{/* Search */}
+<View style={styles.searchBox}>
+  <Ionicons
+    name="search"
+    size={22}
+    color="#999"
+  />
 
-<TextInput
-  placeholder="Search tasks..."
-  style={styles.searchInput}
-  value={searchText}
-  onChangeText={setSearchText}
-/>
-        </View>
+  <TextInput
+    placeholder="Search tasks..."
+    style={styles.searchInput}
+    value={searchText}
+    onChangeText={setSearchText}
+  />
+</View>
 
         {/* Categories */}
         <ScrollView
@@ -259,7 +282,7 @@ const filteredTasks = tasks.filter((task) => {
 )}
       </ScrollView>
 
-      <Modal
+<Modal
   visible={modalVisible}
   transparent
   animationType="slide"
@@ -271,6 +294,7 @@ const filteredTasks = tasks.filter((task) => {
         Add New Task
       </Text>
 
+      {/* Task Title */}
       <TextInput
         placeholder="Task Title"
         style={styles.input}
@@ -278,13 +302,32 @@ const filteredTasks = tasks.filter((task) => {
         onChangeText={setNewTitle}
       />
 
-      <TextInput
-        placeholder="Time"
+      {/* Time Picker */}
+      <Pressable
         style={styles.input}
-        value={newTime}
-        onChangeText={setNewTime}
-      />
+        onPress={() => setShowTimePicker(true)}
+      >
+        <Text
+          style={{
+            fontSize: 16,
+            color: newTime ? "#000" : "#999",
+          }}
+        >
+          {newTime || "Select Time"}
+        </Text>
+      </Pressable>
 
+      {showTimePicker && (
+        <DateTimePicker
+          value={selectedTime}
+          mode="time"
+          display="default"
+          is24Hour={false}
+          onChange={onChangeTime}
+        />
+      )}
+
+      {/* Category */}
       <Text style={styles.selectLabel}>
         Category
       </Text>
@@ -313,6 +356,7 @@ const filteredTasks = tasks.filter((task) => {
         ))}
       </View>
 
+      {/* Buttons */}
       <View style={styles.buttonRow}>
         <Pressable
           style={styles.cancelButton}
